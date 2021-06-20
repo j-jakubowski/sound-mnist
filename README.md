@@ -1,13 +1,17 @@
 # Digit Recognition from Sound
 #### A simple neural network (CNN) to classify spoken digits (0-9).
+
+Original repo <a href='https://github.com/adhishthite/sound-mnist'>Sound-mnist @ adhishthite</a> doesn't seem to work anymore.
+This implementation works with librosa 0.8.0 and Keras 2.4.3
+
+
 ---
 
+# WORK IN PROGRESS.
 
-# WORK IN PROGRESS. M
+Model seems to work, but wasn't much tested with new recordings. Additionally port to python_speech_features library is planned because embedded target supports c port of that library.
 
-Model seems to work, but wasn't much tested. Additionally port to python_speech_features library is planned because embedded target supports c port of that library.
-
-
+---
 
 Dataset: <a href='https://github.com/Jakobovski/free-spoken-digit-dataset'>free-spoken-digit-dataset</a> (FSDD)
 
