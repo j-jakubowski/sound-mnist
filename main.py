@@ -23,6 +23,6 @@ cnn_model = model.get_cnn_model(input_shape, noOfClasses)
 
 print("Training set len: " + str(X_train.shape[0]))
 
-# cnn_model.fit(X_train, y_train, epochs=1000, verbose=1, shuffle = True, validation_data= (X_valid, y_valid))#, callbacks = [callback] )#
+cnn_model.fit(X_train, y_train, epochs=1000, verbose=1, shuffle = True, validation_data= (X_valid, y_valid))#, callbacks = [callback] )#
 #cnn_model.save('my_model.h5')
 test.check_preds(X_test, y_test)
