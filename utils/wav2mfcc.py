@@ -1,33 +1,23 @@
 import numpy as np
 import librosa
-import os
-from keras.utils import to_categorical
 
-def wav2mfcc(file_path, max_pad_len=20):
-    wave, sr = librosa.load(file_path, mono=True, sr=None)
-    wave = wave[::3]
-    mfcc = librosa.feature.mfcc(wave, sr=8000)
-    pad_width = max_pad_len - mfcc.shape[1]
-    mfcc = np.pad(mfcc, pad_width=((0, 0), (0, pad_width)), mode='constant')
+
+
+def wav2mfcc(wave, sr, max_pad_len=20):
+    
+    hop_length = 128
+    wave_len_limit = 4096
+    input_wave_len = len(wave)
+    if input_wave_len > wave_len_limit:
+        wave  = wave[0:4096]
+    elif input_wave_len < wave_len_limit:
+
+        padding = wave_len_limit - input_wave_len
+
+        wave = np.pad(wave,(0,padding))
+
+
+    # wave = wave[::3] # why decimation?
+    mfcc = librosa.feature.mfcc(wave, sr, hop_length = hop_length)
+
     return mfcc
-
-def get_data():
-
-    labels = []
-    mfccs = []
-
-    for f in os.listdir('./recordings'):
-        if f.endswith('.wav'):
-            # MFCC
-            mfccs.append(wav2mfcc('./recordings/' + f))
-
-            # List of labels
-            label = f.split('_')[0]
-            labels.append(label)
-
-    return np.asarray(mfccs), to_categorical(labels)
-
-# if __name__ == '__main__':
-#     mfccs, labels = get_data()
-#     print(mfccs.shape)
-#     print(labels.shape)

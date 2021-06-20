@@ -7,9 +7,9 @@ from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D, BatchNor
 def get_cnn_model(input_shape, num_classes):
     model = Sequential()
 
-    model.add(Conv2D(32, kernel_size=(2, 2), activation='relu', input_shape=input_shape))
+    model.add(BatchNormalization(input_shape=input_shape))
+    model.add(Conv2D(32, kernel_size=(2, 2), activation='relu')) 
     model.add(BatchNormalization())
-
     model.add(Conv2D(48, kernel_size=(2, 2), activation='relu'))
     model.add(BatchNormalization())
 
@@ -28,7 +28,9 @@ def get_cnn_model(input_shape, num_classes):
     model.add(BatchNormalization())
     model.add(Dropout(0.4))
     model.add(Dense(num_classes, activation='softmax'))
-    model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adadelta(), metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy', optimizer='adadelta', metrics=['accuracy'])
+
+    
 
     return model
 
